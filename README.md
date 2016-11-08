@@ -42,7 +42,7 @@ It's possible to reset the image cache by shaking the device.
 The image cache is also reset on memory warning events.
 
 
-Technical Improvements
+Future Improvements
 =
 
 This initial implementation should be improved in the following areas:

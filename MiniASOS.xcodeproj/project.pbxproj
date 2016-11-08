@@ -40,6 +40,7 @@
 		233519071DD254BD00E5032E /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233519051DD254BD00E5032E /* ContainerViewController.swift */; };
 		234C8A961DD26EC400F82A53 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 234C8A981DD26EC400F82A53 /* Localizable.strings */; };
 		234C8A9A1DD272F700F82A53 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234C8A991DD272F700F82A53 /* Utils.swift */; };
+		234C8A9C1DD28EF600F82A53 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234C8A991DD272F700F82A53 /* Utils.swift */; };
 		2370ABD21DCD184D00CF71F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2370ABD11DCD184D00CF71F8 /* AppDelegate.swift */; };
 		2370ABD71DCD184D00CF71F8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2370ABD51DCD184D00CF71F8 /* Main.storyboard */; };
 		2370ABD91DCD184D00CF71F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2370ABD81DCD184D00CF71F8 /* Assets.xcassets */; };
@@ -569,6 +570,7 @@
 				233518E61DD1DD7F00E5032E /* APIClient.swift in Sources */,
 				233519071DD254BD00E5032E /* ContainerViewController.swift in Sources */,
 				233518FF1DD2545E00E5032E /* ProductCollectionViewCell.swift in Sources */,
+				234C8A9C1DD28EF600F82A53 /* Utils.swift in Sources */,
 				233518F41DD1FAB600E5032E /* PageContentViewController.swift in Sources */,
 				233518ED1DD1DE0700E5032E /* ProductDetails.swift in Sources */,
 				233518EC1DD1DE0200E5032E /* Product.swift in Sources */,
