@@ -14,6 +14,9 @@ The app is implemented in Swift 3 and includes the following features:
 - Support for localisation.
 
 
+![Alt text](docs/image1.png?raw=true "Product Listing")
+![Alt text](docs/image2.png?raw=true "Product Details")
+
 Build, test and run
 =
 
