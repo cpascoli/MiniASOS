@@ -1,8 +1,8 @@
 # MiniASOS
 
-MiniASOS is a simple ecommerce app inspired by the ASOS app for devices running iOS 9.3 or higher.
+MiniASOS is a simple e-commerce app inspired by the ASOS app for iOS devices running iOS 9.3 or higher.
+The app is implemented in Swift 3 and includes the following features:
 
-The app includes the following features:
 - A Facebook style menu to select product categories.
 - A product grid screen implemented with a UICollectionView.
 - A product detail screen with product description and image carousel.
@@ -16,9 +16,8 @@ The app includes the following features:
 
 Build, test and run
 =
-WeatherHype is implemented is Swift 3 and therefore requires Xcode 8.0 to run.
 
-Open the `WeatherHype.xcworkspace`in Xcode and hit:
+Open the `MiniASOS.xcworkspace`in Xcode 8 and hit:
 
 * `CMD+U`  Run the Unit and Integration Tests
 * `CMD+R`  Build & Run the app
@@ -43,9 +42,9 @@ The image cache is also reset on memory warning events.
 Technical Improvements
 =
 
-This initial implementation can be improved in the following areas:
+This initial implementation should be improved in the following areas:
 
-* Error handling: network requests should handle error conditions (e.g network errors, timeouts, API errors) and display an appropriate message to the user.
-* Offline support: add some support for lack of connectivity and inform the user if the data of stale data.
-* Improved design also taking advantage of hi resolution assets.
+* Error handling: network requests should handle error conditions (e.g network errors, timeouts) and display an appropriate message to the user.
+* Offline Support: the app should inform the user if the device is offline.
+* Visual Design: improve the general look and feel also taking advantage of high resolution assets.
 
