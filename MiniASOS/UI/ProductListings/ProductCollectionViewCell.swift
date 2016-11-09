@@ -94,8 +94,10 @@ class ProductCollectionViewCell: UICollectionViewCell {
     private func downloadImage() {
         if let downloader = self.imageDownloader {
             let taskId = downloader.fetchImage(for: imageUrl!,  onCompletion: { image, error in
-                self.imageView.image = image
-            })            
+                if (image != nil) {
+                    self.imageView.image = image
+                }
+            })
             self.downloadTaskId = taskId > -1 ? taskId : nil
         }
     }

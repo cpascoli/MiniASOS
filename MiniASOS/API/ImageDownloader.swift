@@ -17,6 +17,7 @@ struct TaskData {
     let callback:ImageResponse
     let task:URLSessionDataTask
     let url:String
+    let data = NSMutableData()
     init(url:String, task:URLSessionDataTask, callback:@escaping ImageResponse) {
         self.url = url
         self.task = task
@@ -57,7 +58,7 @@ class ImageDownloader: NSObject, URLSessionDataDelegate {
         let image = self.imageCache.get(key: url)
         if image == nil {
             // request for image
-            print("download image: ", url)
+            print("fetchImage: ", url)
             let request = imageRequest(url: URL(string:url)!)
             let task = self.session.dataTask(with: request)
             inflightRequests[task.taskIdentifier] = TaskData(url:url, task: task, callback: onCompletion)
@@ -85,16 +86,20 @@ class ImageDownloader: NSObject, URLSessionDataDelegate {
    
     //MARK: URLSessionTaskDelegate
     
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void) {
+    
+        print("Task [\(dataTask.taskIdentifier) started download")
+        completionHandler(.allow)
+    }
+    
+    
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         
+        print("Task [\(dataTask.taskIdentifier)] received data")
         let taskData = inflightRequests[dataTask.taskIdentifier]
         if let taskData = taskData {
-            // resize images if needed and store them in the memory cache
-            let resizedImage = resizeImage(image:UIImage(data: data), width:maxImageWidth)
-            if let image = resizedImage {
-                self.imageCache.set(image: image, key: taskData.url)
-            }
-            taskData.callback(resizedImage, nil)
+            // accumulate data for in-flight request.
+            taskData.data.append(data)
         }
     }
  
@@ -104,8 +109,22 @@ class ImageDownloader: NSObject, URLSessionDataDelegate {
         let taskData = inflightRequests.removeValue(forKey: task.taskIdentifier)
         if let error = error {
             taskData?.callback(nil, error)
+            print("Task [\(task.taskIdentifier)] completed. error:", error)
+        } else {
+            
+            if let taskData = taskData {
+                // resize images if needed and store them in the memory cache
+                let data = taskData.data.copy() as! Data
+                let image = UIImage(data: data)
+                
+                let resizedImage = resizeImage(image:image, width:maxImageWidth)
+                if let image = resizedImage {
+                    self.imageCache.set(image: image, key: taskData.url)
+                }
+                taskData.callback(resizedImage, nil)
+                print("Task [\(task.taskIdentifier)] completed. \(data.count) bytes.")
+            }
         }
-        print("urlSession:task:didComplete - inflight : \(inflightRequests.count)")
     }
 
     //MARK: Private
@@ -156,7 +175,7 @@ class ImageCache {
     }
     
     public func set(image: UIImage, key url:String) {
-        return imageCache[url] = image
+        imageCache[url] = image
     }
     
     public func hasImage(for url:String) -> Bool {
