@@ -107,22 +107,33 @@ class ImageDownloader: NSObject, URLSessionDataDelegate {
         
         // task completed: remove it from inflight tasks
         let taskData = inflightRequests.removeValue(forKey: task.taskIdentifier)
+        
+        // handle error
         if let error = error {
             taskData?.callback(nil, error)
             print("Task [\(task.taskIdentifier)] completed. error:", error)
-        } else {
+            return
+        }
+        
+        // handle response data
+        if let taskData = taskData {
             
-            if let taskData = taskData {
-                // resize images if needed and store them in the memory cache
-                let data = taskData.data.copy() as! Data
-                let image = UIImage(data: data)
+            let data = taskData.data.copy() as! Data
+            print("Task [\(task.taskIdentifier)] completed. \(data.count) bytes.")
+            
+            // process the image in a background queue
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
                 
-                let resizedImage = resizeImage(image:image, width:maxImageWidth)
-                if let image = resizedImage {
-                    self.imageCache.set(image: image, key: taskData.url)
+                let image = UIImage(data: data)
+                let resizedImage = self.resizeImage(image, width:self.maxImageWidth)
+                
+                // back to the main thread to update the cache and UI
+                DispatchQueue.main.async {
+                    if let resizedImage = resizedImage {
+                        self.imageCache.set(image: resizedImage, key: taskData.url)
+                    }
+                    taskData.callback(resizedImage, nil)
                 }
-                taskData.callback(resizedImage, nil)
-                print("Task [\(task.taskIdentifier)] completed. \(data.count) bytes.")
             }
         }
     }
@@ -136,7 +147,7 @@ class ImageDownloader: NSObject, URLSessionDataDelegate {
         return request
     }
     
-    private func resizeImage(image: UIImage?, width: CGFloat) -> UIImage? {
+    private func resizeImage(_ image: UIImage?, width: CGFloat) -> UIImage? {
         
         guard let image = image else {
             return nil
