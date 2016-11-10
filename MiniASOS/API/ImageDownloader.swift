@@ -11,7 +11,7 @@ import UIKit
 typealias ImageResponse = (UIImage?, Error?) -> Void
 
 /**
- * Structure used to hold the client callback and other data while the image request is in-flight.
+ * Structure used to hold the client callback and other data while the request is in-flight.
  */
 struct TaskData {
     let callback:ImageResponse
@@ -30,7 +30,7 @@ struct TaskData {
  *
  *  Internally it's using ImageCache to reduce the app memory usage and speedup the rendering.
  *  'large' images get resized before being stored into the cache and passed to the client callback.
- *   An image is considered 'large', and gets resized, if its width is greather than 400px.
+ *  An image is considered 'large', and gets resized, if its width is greather than 400px.
  */
 
 class ImageDownloader: NSObject, URLSessionDataDelegate {
@@ -63,6 +63,9 @@ class ImageDownloader: NSObject, URLSessionDataDelegate {
             let task = self.session.dataTask(with: request)
             inflightRequests[task.taskIdentifier] = TaskData(url:url, task: task, callback: onCompletion)
             task.resume()
+            
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            
             return task.taskIdentifier
         }
         
@@ -84,11 +87,11 @@ class ImageDownloader: NSObject, URLSessionDataDelegate {
     }
     
    
-    //MARK: URLSessionTaskDelegate
+    //MARK: URLSessionDataDelegate
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void) {
     
-        print("Task [\(dataTask.taskIdentifier) started download")
+        print("Task [\(dataTask.taskIdentifier)] started download")
         completionHandler(.allow)
     }
     
@@ -107,6 +110,11 @@ class ImageDownloader: NSObject, URLSessionDataDelegate {
         
         // task completed: remove it from inflight tasks
         let taskData = inflightRequests.removeValue(forKey: task.taskIdentifier)
+        
+        // hide network activity indicator if no more requests are in-flight
+        if inflightRequests.count == 0 {
+             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
         
         // handle error
         if let error = error {
@@ -173,8 +181,10 @@ class ImageDownloader: NSObject, URLSessionDataDelegate {
 
 /**
  * A simple implementation of an in-memory cache for Images.
+ * This class is not thread safe so access has to be syncronized externally.
  * The cache is cleared when the app receives didReceiveMemoryWarning
  * or the user shakes the device (for testing purpose)
+ *
  */
 
 class ImageCache {

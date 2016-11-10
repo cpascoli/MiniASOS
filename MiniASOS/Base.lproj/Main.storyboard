@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -240,13 +239,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="KhM-85-aq7">
+                                <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="PJ0-IZ-GKp" firstAttribute="top" secondItem="BGe-1X-C8l" secondAttribute="bottom" constant="10" id="0jw-IX-K6K"/>
                             <constraint firstItem="PJ0-IZ-GKp" firstAttribute="centerX" secondItem="tTB-eT-udJ" secondAttribute="centerX" id="6QF-cC-bHT"/>
+                            <constraint firstItem="KhM-85-aq7" firstAttribute="centerX" secondItem="tTB-eT-udJ" secondAttribute="centerX" id="6kd-Qy-PCc"/>
                             <constraint firstItem="BGe-1X-C8l" firstAttribute="centerX" secondItem="tTB-eT-udJ" secondAttribute="centerX" id="7CO-Vv-3Lf"/>
                             <constraint firstItem="0Jf-TZ-PeZ" firstAttribute="top" secondItem="8LZ-S7-W0t" secondAttribute="bottom" id="Bhc-ZQ-UKF"/>
+                            <constraint firstItem="KhM-85-aq7" firstAttribute="width" secondItem="tTB-eT-udJ" secondAttribute="width" id="EBS-Hz-duD"/>
+                            <constraint firstItem="KhM-85-aq7" firstAttribute="centerY" secondItem="tTB-eT-udJ" secondAttribute="centerY" id="OgF-la-8mi"/>
+                            <constraint firstItem="KhM-85-aq7" firstAttribute="height" secondItem="tTB-eT-udJ" secondAttribute="height" id="OlN-bR-L9o"/>
                             <constraint firstItem="8LZ-S7-W0t" firstAttribute="width" secondItem="tTB-eT-udJ" secondAttribute="width" id="Ov5-eb-JK3"/>
                             <constraint firstItem="8LZ-S7-W0t" firstAttribute="centerX" secondItem="tTB-eT-udJ" secondAttribute="centerX" id="PNk-hA-x4K"/>
                             <constraint firstItem="BGe-1X-C8l" firstAttribute="width" secondItem="tTB-eT-udJ" secondAttribute="width" constant="-20" id="Uoj-9Z-moo"/>
@@ -261,6 +267,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="KhM-85-aq7" id="0NE-Tc-kr6"/>
                         <outlet property="addToBagButton" destination="PJ0-IZ-GKp" id="IfE-Uk-DUU"/>
                         <outlet property="brandNameLabel" destination="8LZ-S7-W0t" id="hmx-PW-p23"/>
                         <outlet property="carouselContainerView" destination="0Jf-TZ-PeZ" id="0ev-Xs-anp"/>
@@ -288,11 +295,11 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="zAR-3P-eET" firstAttribute="centerY" secondItem="Rle-Rv-Pjo" secondAttribute="centerY" id="Huz-vn-BcQ"/>
                             <constraint firstItem="zAR-3P-eET" firstAttribute="centerX" secondItem="Rle-Rv-Pjo" secondAttribute="centerX" id="OU6-af-Yms"/>
-                            <constraint firstItem="zAR-3P-eET" firstAttribute="width" secondItem="Rle-Rv-Pjo" secondAttribute="width" id="bdc-wV-HtW"/>
+                            <constraint firstItem="zAR-3P-eET" firstAttribute="width" secondItem="Rle-Rv-Pjo" secondAttribute="width" constant="-20" id="bdc-wV-HtW"/>
                             <constraint firstItem="zAR-3P-eET" firstAttribute="height" secondItem="Rle-Rv-Pjo" secondAttribute="height" id="oIO-EI-l8D"/>
                         </constraints>
                     </view>

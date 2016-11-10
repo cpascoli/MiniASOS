@@ -11,6 +11,7 @@ import UIKit
 class ProductDetailViewController: BaseViewController {
 
     @IBOutlet weak var brandNameLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var imageCarouselContainerView: UIView!
     @IBOutlet weak var addToBagButton: UIButton!
     @IBOutlet weak var carouselContainerView: UIView!
@@ -28,6 +29,11 @@ class ProductDetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.activityIndicator.startAnimating()
     }
     
     override func setupUI() {
@@ -57,6 +63,10 @@ class ProductDetailViewController: BaseViewController {
     
     //MARK: Private
     private func updateUI() {
+        
+        self.activityIndicator.stopAnimating()
+        self.activityIndicator.removeFromSuperview()
+        
         self.brandNameLabel.text = product.brand
         self.productDescriptionLabel.text = product.productDescription
         let addToBag = "Add to Bag".localized

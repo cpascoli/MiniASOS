@@ -146,7 +146,15 @@ class APIClient: NSObject {
 
     private func execute(request:URLRequest, handler:@escaping JSONResponse) {
         
+        DispatchQueue.main.async(execute:{
+           UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        })
+        
         let task = session.dataTask(with: request, completionHandler: {data, response, error -> Void in
+            
+            DispatchQueue.main.async(execute:{
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            })
             guard let data = data, error == nil else {
                 handler(JSON.null, error as NSError?)
                 return
