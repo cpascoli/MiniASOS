@@ -32,8 +32,9 @@ class PageContentViewController: UIViewController {
     }
     
     func downloadImage(from url:String) {
-    
-        self.taskId = imageDownloader.fetchImage(for: url, onCompletion: { image, error in           
+        self.imageView.backgroundColor = UIColor.noImageColor()
+        self.taskId = imageDownloader.fetchImage(for: url, onCompletion: { image, error in
+            self.imageView.backgroundColor = UIColor.clear
             self.taskId = nil
             if let image = image {
                 self.imageView.image = image

@@ -92,10 +92,12 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
     
     private func downloadImage() {
+        self.imageView.backgroundColor = UIColor.noImageColor()
         if let downloader = self.imageDownloader {
             let taskId = downloader.fetchImage(for: imageUrl!,  onCompletion: { image, error in
                 if (image != nil) {
                     self.imageView.image = image
+                    self.imageView.backgroundColor = UIColor.white
                 }
             })
             self.downloadTaskId = taskId > -1 ? taskId : nil

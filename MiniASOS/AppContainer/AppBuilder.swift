@@ -71,7 +71,7 @@ class AppBuilder: NSObject {
         mainViewController.menuViewController = menuViewController
         productListingsViewController.delegate = mainViewController
         
-        // block fetch the details for a Product and transition to the ProductDetails screen
+        // This block fetches the detail for a product and transitions to the ProductDetails screen
         productListingsViewController.productTapped =  { product in
            
             let productDetailsViewController = self.newProductDetailsViewController()

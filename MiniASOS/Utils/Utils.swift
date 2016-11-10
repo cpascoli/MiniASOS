@@ -22,6 +22,11 @@ extension UIColor {
     static public func goldColor() -> UIColor {
         return  UIColor.init(red: 234, green: 197, blue: 55)
     }
+    
+    static public func noImageColor() -> UIColor {
+        return  UIColor.init(red: 234, green: 234, blue: 234)
+    }
+    
 }
 
 extension String {
